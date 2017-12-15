@@ -24,6 +24,7 @@ public class CharacterSelection {
 		String data = "";
 		for(Character c: animatedCharacters) {
 			data += c;
+			data += "\n";
 		}
 		return data;
 	}
