@@ -15,6 +15,7 @@ import guiTeacher.interfaces.KeyedComponent;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FullFunctionScreen;
 import justin.playground.GIF;
+import justin.playground.Character;
 
 public class Sampler extends GUIApplication {
 
@@ -58,8 +59,6 @@ public class Sampler extends GUIApplication {
 			//Set styles
 			StyledComponent.setButtonOutline(true);
 			setCustomFont();
-			
-			viewObjects.add(new GIF());
 			
 			RadioButton rb1 = new RadioButton(480, 40, 30, 30, "X", null);
 			RadioButton rb2 = new RadioButton(520, 40, 30, 30, "Y", null);
@@ -122,6 +121,9 @@ public class Sampler extends GUIApplication {
 				}
 			}); 
 			viewObjects.add(cb);
+			
+			viewObjects.add(new Character(0, 0, 55, 69, "Goku", 10, 2, 30));
+			
 		}
 		
 		public void mouseDragged(MouseEvent m) {
