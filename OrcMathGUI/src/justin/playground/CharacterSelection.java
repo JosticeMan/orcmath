@@ -15,9 +15,8 @@ public class CharacterSelection {
 	}
 
 	public static void main(String[] args) {
-		
 		CharacterSelection cs = new CharacterSelection();
-		
+		System.out.println(cs.getCSVContent());
 	}
 
 	public String getCSVContent() {

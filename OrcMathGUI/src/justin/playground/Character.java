@@ -14,7 +14,7 @@ public class Character extends AnimatedComponent {
 		this.type = type;
 		this.armorStrength = armorStrength;
 		this.combatPotential = combatPotential;
-		addSequence("resources/goku.png", 250, 0, 0, 48, 69, 9);
+		addSequence("resources/goku.png", 250, 0, 0, w, h, 9);
 		Thread animation = new Thread(this);
 		animation.start();
 		update();
