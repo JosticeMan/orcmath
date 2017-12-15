@@ -122,7 +122,7 @@ public class Sampler extends GUIApplication {
 			}); 
 			viewObjects.add(cb);
 			
-			viewObjects.add(new Character(0, 0, 55, 69, "Goku", 10, 2, 30));
+			viewObjects.add(new Character(0, 0, 40, 69, "Goku", 10, 2, 30));
 			
 		}
 		

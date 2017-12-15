@@ -16,7 +16,7 @@ public class CharacterSelection {
 
 	public static void main(String[] args) {
 		
-		
+		CharacterSelection cs = new CharacterSelection();
 		
 	}
 
