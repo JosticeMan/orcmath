@@ -58,7 +58,7 @@ public class CharacterSelection {
 		
 		try {    
 
-			 String fileName = "Character List";
+			 String fileName = "resources/Character List";
 			
 			 FileWriter fw= new FileWriter(fileName);    
 
@@ -101,7 +101,7 @@ public class CharacterSelection {
 
 			 try {
 		
-				 fileName = "Character List";
+				 fileName = "resources/Character List";
 		
 				 FileReader fileReader = new FileReader(new File(fileName));
 		
@@ -132,7 +132,7 @@ public class CharacterSelection {
 
 		 }catch (IOException e) {
 
-		 System.out.println("The file name you specified does not exist."); 
+			 System.out.println("The file name you specified does not exist."); 
 		 }
 		}
 		
