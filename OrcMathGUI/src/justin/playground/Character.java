@@ -9,12 +9,12 @@ public class Character extends AnimatedComponent {
 	int armorStrength;
 	int combatPotential;
 	
-	public Character(int x, int y, int w, int h, String type, int armorStrength, int combatPotential) {
-		super(x, y, w, h);
+	public Character(String type, int armorStrength, int combatPotential) {
+		super(100, 100, 100, 100);
 		this.type = type;
 		this.armorStrength = armorStrength;
 		this.combatPotential = combatPotential;
-		addSequence("resources/goku.png", 250, x, y, w, h, 9);
+		addSequence("resources/goku.png", 250, 40, 40, 10, 10, 9);
 		Thread animation = new Thread(this);
 		animation.start();
 		update();

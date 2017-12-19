@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import guiPlayer.Book;
 import guiPlayer.Sampler;
 import guiPlayer.Sampler.SampleScreen;
 import guiTeacher.components.Action;
@@ -32,118 +33,173 @@ import guiTeacher.userInterfaces.FullFunctionScreen;
 
 public class CharacterSelection {
 	
+	public static Scanner in;
+	
 	private ArrayList<Character> animatedCharacters;
 	private boolean asking;
 	
-	public CharacterSelection(int width, int height) {
+	public CharacterSelection() {
 		
 		//super(width, height);
 		animatedCharacters = new ArrayList<Character>();
 		
-		Scanner in = new Scanner(System.in);
-		asking = true;
-		System.out.println("Would you like to add a character to our catalogs?");
-		triggerAsking(in.nextLine());
-		while(asking) {
-			System.out.println("What character would you like to add?");
-			String name = in.nextLine();
-			System.out.println("How much armor does this character have?");
-			int armrpt = Integer.parseInt(in.nextLine());
-			System.out.println("How much strength does this character have?");
-			int strpt = Integer.parseInt(in.nextLine());
-			animatedCharacters.add(new Character(0, 0, 10 , 10, name, armrpt, strpt));
-			System.out.println("Sucess! Would you like to add another character?");
-			triggerAsking(in.nextLine());
-		}
-		
-		try {    
-
-			 String fileName = "resources/Character List";
-			
-			 FileWriter fw= new FileWriter(fileName);    
-
-			 fw.write(getCSVContent());    
-
-			 fw.close();    
-
-			 System.out.println("Success! File \""+fileName+"\" saved!");
-
-		}catch(IOException e){
-
-			 System.out.println("An IOException was thrown. \nCheck to see that the directory where you tried to save the file actually exists.");
-
-		}
 	}
 
-	private void triggerAsking(String nextLine) {
-		if(nextLine.equalsIgnoreCase("yes")) {
-			asking = true;
-		}
-		else {
-			asking = false;
-		}
-	}
 
 	public static void main(String[] args) {
-		CharacterSelection cs = new CharacterSelection(800, 550);
-		//Thread go = new Thread(cs);
-		//go.start();
-
-		 String fileName;
-		 
-		 List<String> content = new ArrayList<String>();
-
-		 //use this boolean to control the while loop. The user should have multiple chances to enter a correct filename
-
-		 boolean opened = false;
-
-		 while(!opened){
-
-			 try {
-		
-				 fileName = "resources/Character List";
-		
-				 FileReader fileReader = new FileReader(new File(fileName));
-		
-				 String line = "";
-		
-				 //a BufferedReader enables us to read teh file one line at a time
-		
-				 BufferedReader br = new BufferedReader(fileReader);
-		
-				 while ((line = br.readLine()) != null) {
+		CharacterSelection cs = new CharacterSelection();
+		in = new Scanner(System.in);
+		cs.menu();
+	}
 	
-					 content.add(line);
+	private static void displayMessage(String message){
+		System.out.println(message);
+	}
 	
-					 /*
-			
-					  * useful later:
-			
-					  * split only a comma that has an even number of quotes ahead of it
-			
-					 String[] row = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-			
-					  */
-				 }
-		
-				 br.close();
-		
-				 opened = true;
-
-		 }catch (IOException e) {
-
-			 System.out.println("The file name you specified does not exist."); 
-		 }
-		}
-		
-		System.out.println("Now viewing your csv file!");
-		 
-		for(String item : content){
-
-			 System.out.println(item);
-
+	private void menu() {
+		displayMessage("Would you like to \"load\" a save file or \"create\" a new list? ");
+		String[] allowedEntry = {"load","create"};
+		String input = getEntry(allowedEntry);
+		if(input.equals("load")){
+			load();
+		}else{
+			create();
 		}
 	}
+	
+	private void create() {
+		
+		boolean running = true;
+		while(running){
+			showCatalog();
+			displayMessage("Would you like to \"add\", \"save\", or \"quit\"?");
+			String[] allowedEntry = {"add","save","quit"};
+			String selection = getEntry(allowedEntry);
+			if(selection.equals("add")){
+				add();
+			}else if(selection.equals("save")){
+				save();
+			}else{
+				running = false;
+			}
+		}
+	}
+	
+	private void add() {
+		String type = null;
+		int armrpt;
+		int strpt;
+		displayMessage("Please enter a Character");
+		type = getStringInput();
+		displayMessage("How much armor does this Character have?");
+		armrpt = getIntegerInput();
+		displayMessage("How much strength does this Character have?");
+		strpt = getIntegerInput();
+		addCharacter(new Character(type, armrpt, strpt));
+	}
+	
+	private int getIntegerInput() {
+		String text = in.nextLine();
+		int value = 0;
+		boolean valid = false;
+		while(!valid){
+			try{
+				value = Integer.parseInt(text);
+				valid = true;
+			}catch(NumberFormatException nfe){
+				displayMessage("You must enter an integer.");
+			}
+		}
+		return value;
+	}
+	
+	private static String getStringInput(){
+		String text = in.nextLine();
+		while(text.isEmpty()){
+			displayMessage("You must enter a non-empty String.");
+			text = in.nextLine();
+		}
+		return text;
+	}
+	
+	private void addCharacter(Character c){
+		animatedCharacters.add(c);
+	}
+	
+	private void save() {
+		try{    
+			FileWriter fw=new FileWriter("CharacterCatalog.csv");
+			for(Character c: animatedCharacters){
+				fw.write(c+"\n");    	
+			}
+
+			fw.close();    
+			System.out.println("Success! File \"CharacterCatalog.csv\" saved!");
+		}catch(IOException e){
+			System.out.println("An IOException was thrown. \nCheck to see that the directory where you tried to save the file actually exists.");
+		}
+	}
+
+	private static String getEntry(String[] allowedEntry) {
+		String input = in.nextLine();
+		while(!matchesEntry(input, allowedEntry)){
+			displayMessage("You must enter one of these words: ");
+			for(String s: allowedEntry){
+				System.out.print(s+" ");
+			}
+			displayMessage("\n");
+			input = in.nextLine();
+		}
+		return input;
+	}
+
+	private static boolean matchesEntry(String text, String[] list){
+		for(String l: list){
+			if(l.equals(text))return true;
+		}
+		return false;
+	}
+
+	private  void showCatalog() {
+		displayMessage("The catalog contains these Characters:\n");
+		for(Character c: animatedCharacters){
+			displayMessage("   "+c.toString()+"\n");
+		}
+	}
+
+	private void load() {
+		String fileName = "";
+		//empty the catalog to prepare for a new load
+		animatedCharacters = new ArrayList<Character>();
+		//use this boolean to control the while loop. The user should have multiple chances to enter a correct filename
+		boolean opened = false;
+		while(!opened){
+			try {
+				System.out.println("Enter a file to open");
+				fileName = in.nextLine();
+				FileReader fileReader = new FileReader(new File(fileName));
+				String line = "";
+				//a BufferedReader enables us to read the file one line at a time
+				BufferedReader br = new BufferedReader(fileReader);
+				while ((line = br.readLine()) != null) {
+
+					String[] param = line.split(",");
+					//add a new Book for each line in the save file
+					animatedCharacters.add(new Character(param[0],Integer.parseInt(param[1]),Integer.parseInt(param[2])));
+
+
+
+				}
+				br.close();
+				opened = true;
+			}catch (IOException e) {
+				System.out.println("The file name you specified does not exist.");
+			}
+		}
+		create();
+
+	}
+	
 
 	/*
 	@Override

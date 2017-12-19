@@ -153,7 +153,7 @@ public class CatalogMaker {
 				fileName = in.nextLine();
 				FileReader fileReader = new FileReader(new File(fileName));
 				String line = "";
-				//a BufferedReader enables us to read teh file one line at a time
+				//a BufferedReader enables us to read the file one line at a time
 				BufferedReader br = new BufferedReader(fileReader);
 				while ((line = br.readLine()) != null) {
 
