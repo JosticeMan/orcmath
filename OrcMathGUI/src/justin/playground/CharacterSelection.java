@@ -36,7 +36,6 @@ public class CharacterSelection {
 	public static Scanner in;
 	
 	private ArrayList<Character> animatedCharacters;
-	private boolean asking;
 	
 	public CharacterSelection() {
 		
