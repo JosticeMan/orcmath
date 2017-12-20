@@ -125,6 +125,16 @@ public class CharacterSelection {
 		animatedCharacters.add(c);
 	}
 	
+	public boolean addCharacter1(Character c){
+		if(animatedCharacters) {
+			return false;
+		}
+		else {
+			animatedCharacters.add(c);
+			return true;
+		}
+	}
+	
 	public void save() {
 		try{    
 			FileWriter fw=new FileWriter("CharacterCatalog.csv");

@@ -23,11 +23,12 @@ public class CatalogScreen extends FullFunctionScreen implements FileRequester {
 	private TextField theField2;
 	private Button theButton;
 	private TextArea text;
+	private TextArea text1;
 	private Button addButton;
 	private Button deleteButton;
 	private Button saveButton;
 	private FileOpenButton openButton;
-	private CharacterSelection c;
+	private CharacterSelection c = new CharacterSelection();
 	
 	public CatalogScreen(int width, int height) {
 		super(width, height);
@@ -35,8 +36,11 @@ public class CatalogScreen extends FullFunctionScreen implements FileRequester {
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
-		text = new TextArea(40, 160, 150, 50, "Hello!");
+		text = new TextArea(40, 160, 150, 50, "Alert: ");
 		viewObjects.add(text);
+		
+		text1 = new TextArea(40, 225, 150, 50, "Catalog: \n");
+		viewObjects.add(text1);
 		
 		theField = new TextField(40, 50, 150, 50, "Enter Character Name", "Type");
 		viewObjects.add(theField);
@@ -47,18 +51,7 @@ public class CatalogScreen extends FullFunctionScreen implements FileRequester {
 		
 		theField2 = new TextField(360, 50, 150, 50, "Enter Combat Points", "Combat Points");
 		theField2.setInputType(TextField.INPUT_TYPE_NUMERIC);
-		viewObjects.add(theField2);
-		
-		theButton = new Button(40, 110, 50, 40, "Create", Color.GRAY, new Action() {
-			
-			@Override
-			public void act() {
-				// TODO Auto-generated method stub
-			}
-			
-		});
-		viewObjects.add(theButton);
-		
+		viewObjects.add(theField2);;
 		
 		//add , saving, deleting, save file
 		
@@ -84,17 +77,28 @@ public class CatalogScreen extends FullFunctionScreen implements FileRequester {
 	}
 
 	protected void addClicked() {
-		Character d = new Character(theField.getText(), Integer.parseInt(theField1.getText()), Integer.parseInt(theField2.getText()));
-		text.setText("Success");
-		c.addCharacter(d);
-		theField.setText(null);
-		theField1.setText(null);
-		theField2.setText(null);
+		//Verifies for duplicates and empty fields
+		if(theField.getText().length() == 0 || theField1.getText().length() == 0 || theField2.getText().length() == 0) {
+			text.setText("Alert: Put in some data for me to process!");
+		}
+		else if(text1.getText().contains(theField.getText()) && text1.getText().contains(theField1.getText()) && text1.getText().contains(theField2.getText())) {
+			text.setText("Alert: No dupes!");
+			theField.setText("");
+			theField1.setText("");
+			theField2.setText("");
+		}
+		else {
+			c.addCharacter(new Character(theField.getText(), Integer.parseInt(theField1.getText()), Integer.parseInt(theField2.getText())));
+			text.setText("Alert: Success");
+			text1.setText(text1.getText() + theField.getText() + Integer.parseInt(theField1.getText()) + Integer.parseInt(theField2.getText()) + "\n");
+			theField.setText("");
+			theField1.setText("");
+			theField2.setText("");
+		}
 	}
 
 	@Override
 	public void setFile(File f) {
-		// TODO Auto-generated method stub
 		
 	}
 

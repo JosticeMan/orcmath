@@ -12,13 +12,14 @@ public class CatalogGUI extends GUIApplication {
 
 	@Override
 	public void initScreen() {
-		CatalogScreen screen = new CatalogScreen(500,500);
+		CatalogScreen screen = new CatalogScreen(getWidth(),getHeight());
 		setScreen(screen);
 	}
 
 	public static void main(String[] args) {
-		CatalogGUI i = new CatalogGUI(100,100);
-		
+		CatalogGUI i = new CatalogGUI(800,550);
+		Thread go = new Thread(i);
+		go.start();	
 	}
 
 }
