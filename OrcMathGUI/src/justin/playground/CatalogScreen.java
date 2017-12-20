@@ -81,7 +81,7 @@ public class CatalogScreen extends FullFunctionScreen implements FileRequester {
 		if(theField.getText().length() == 0 || theField1.getText().length() == 0 || theField2.getText().length() == 0) {
 			text.setText("Alert: Put in some data for me to process!");
 		}
-		else if(text1.getText().contains(theField.getText()) && text1.getText().contains(theField1.getText()) && text1.getText().contains(theField2.getText())) {
+		else if(text1.getText().contains(theField.getText() + theField1.getText() + theField2.getText())) {
 			text.setText("Alert: No dupes!");
 			theField.setText("");
 			theField1.setText("");
