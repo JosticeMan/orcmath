@@ -38,14 +38,14 @@ public class CatalogScreen extends FullFunctionScreen implements FileRequester {
 		text = new TextArea(40, 160, 150, 50, "Hello!");
 		viewObjects.add(text);
 		
-		theField = new TextField(40, 50, 150, 50, "Type");
+		theField = new TextField(40, 50, 150, 50, "Enter Character Name", "Type");
 		viewObjects.add(theField);
 		
-		theField1 = new TextField(200, 50, 150, 50, "Armor Points");
+		theField1 = new TextField(200, 50, 150, 50, "Enter Armor Points", "Armor Points");
 		theField1.setInputType(TextField.INPUT_TYPE_NUMERIC);
 		viewObjects.add(theField1);
 		
-		theField2 = new TextField(360, 50, 150, 50, "Combat Points");
+		theField2 = new TextField(360, 50, 150, 50, "Enter Combat Points", "Combat Points");
 		theField2.setInputType(TextField.INPUT_TYPE_NUMERIC);
 		viewObjects.add(theField2);
 		
