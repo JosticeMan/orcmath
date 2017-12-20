@@ -121,11 +121,11 @@ public class CharacterSelection {
 		return text;
 	}
 	
-	private void addCharacter(Character c){
+	public void addCharacter(Character c){
 		animatedCharacters.add(c);
 	}
 	
-	private void save() {
+	public void save() {
 		try{    
 			FileWriter fw=new FileWriter("CharacterCatalog.csv");
 			for(Character c: animatedCharacters){

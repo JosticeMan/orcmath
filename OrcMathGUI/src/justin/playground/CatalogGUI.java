@@ -18,6 +18,7 @@ public class CatalogGUI extends GUIApplication {
 
 	public static void main(String[] args) {
 		CatalogGUI i = new CatalogGUI(100,100);
+		
 	}
 
 }
