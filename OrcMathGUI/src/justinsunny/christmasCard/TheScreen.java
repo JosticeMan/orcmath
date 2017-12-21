@@ -1,6 +1,7 @@
 package justinsunny.christmasCard;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.util.List;
 
 import guiTeacher.components.*;
@@ -21,8 +22,26 @@ public class TheScreen extends FullFunctionScreen {
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
-		switchScreen = new Button(40, 40, 140, 40, "Switch Screen", Color.CYAN, null);
+		
+		TextArea area = new TextArea(40, 40, 100, 100, Integer.toString((int) (Math.random() * 10)));
+		viewObjects.add(area);
+		
+		switchScreen = new Button(645, 492, 140, 40, "Switch Screen", Color.RED, new Action() {
+			
+			@Override
+			public void act() {
+				TheScreen temp = TheGUI.card.screen1;
+				TheGUI.card.setScreen(TheGUI.screen2);
+				TheGUI.card.screen1 = TheGUI.card.screen2;
+				TheGUI.card.screen2 = temp;
+			}
+			
+		});
+		Font font = new Font("IMPACT", Font.BOLD, 16);
+		switchScreen.setFont(font);
+		switchScreen.setForeground(Color.GREEN);
 		viewObjects.add(switchScreen);
 	}
 
+	
 }
