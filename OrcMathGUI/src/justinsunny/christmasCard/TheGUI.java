@@ -25,7 +25,7 @@ public class TheGUI extends GUIApplication {
 	
 	public static void main(String[] args) {
 		screen1 = new TheScreen(800, 550);
-		screen2 = new TheScreen(800, 540);
+		screen2 = new TheScreen(800, 550);
 		card = new TheGUI(800,550);
 		Thread go = new Thread(card);
 		go.start();
