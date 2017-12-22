@@ -4,9 +4,9 @@ import guiTeacher.GUIApplication;
 
 public class TheGUI extends GUIApplication {
 
-	static TheGUI card;
-	static TheScreen screen1;
-	static TheScreen screen2;
+	public static TheGUI card;
+	public static TheScreen front;
+	public static TheBack back;
 	
 	public TheGUI(int width, int height) {
 		super(width, height);
@@ -19,12 +19,12 @@ public class TheGUI extends GUIApplication {
 	
 	@Override
 	public void initScreen() {
-		screen1 = new TheScreen(getWidth(),getHeight());
-		setScreen(screen1);
+		front = new TheScreen(getWidth(),getHeight());
+		back = new TheBack(getWidth(),getHeight());
+		setScreen(front);
 	}
 	
 	public static void main(String[] args) {
-		screen2 = new TheScreen(800, 550);
 		card = new TheGUI(800,550);
 		Thread go = new Thread(card);
 		go.start();

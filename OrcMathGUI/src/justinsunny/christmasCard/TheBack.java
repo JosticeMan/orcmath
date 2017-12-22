@@ -2,33 +2,33 @@ package justinsunny.christmasCard;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics2D;
 import java.util.List;
 
-import guiTeacher.components.*;
+import guiTeacher.components.Action;
+import guiTeacher.components.Button;
+import guiTeacher.components.Graphic;
+import guiTeacher.components.TextArea;
 import guiTeacher.interfaces.Visible;
 import guiTeacher.userInterfaces.FullFunctionScreen;
 
-public class TheScreen extends FullFunctionScreen {
+public class TheBack extends FullFunctionScreen {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4016165644473858161L;
 	private Button switchScreen;
 	
-	public TheScreen(int width, int height) {
+	public TheBack(int width, int height) {
 		super(width, height);
 	}
 
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
 		
+		viewObjects.add(new Graphic(0,0,getWidth(), getHeight(), "resources/images.jpg"));
+		
 		switchScreen = new Button(645, 492, 140, 40, "Switch Screen", Color.RED, new Action() {
 			
 			@Override
 			public void act() {
-				TheGUI.card.setScreen(TheGUI.back);
+				TheGUI.card.setScreen(TheGUI.front);
 			}
 			
 		});
@@ -36,13 +36,5 @@ public class TheScreen extends FullFunctionScreen {
 		switchScreen.setFont(font);
 		switchScreen.setForeground(Color.GREEN);
 		viewObjects.add(switchScreen);
-		
-		viewObjects.add(new Graphic(0, 0, getWidth(), getHeight(), "resources/christmas.jpg"));
-		
-		for(int i = 0; i < 23; i++) {
-			viewObjects.add(new Santa(getWidth(), getHeight()));
-		}
 	}
-
-	
 }
