@@ -37,6 +37,12 @@ public class TheScreen extends FullFunctionScreen {
 		switchScreen.setForeground(Color.GREEN);
 		viewObjects.add(switchScreen);
 		
+		CButton theB = new CButton(50, 50);
+		theB.updateString1("Hello");
+		theB.updateString2("Muahah");
+		theB.setIconColor(Color.GREEN);
+		viewObjects.add(theB);
+		
 		viewObjects.add(new Graphic(0, 0, getWidth(), getHeight(), "resources/christmas.jpg"));
 		
 		for(int i = 0; i < 23; i++) {

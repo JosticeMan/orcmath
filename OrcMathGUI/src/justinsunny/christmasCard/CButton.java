@@ -15,6 +15,8 @@ public class CButton extends Button {
 
 	public CButton(int x, int y) {
 		super(x, y, 30, 30, "", null);
+		setCurve(35,25);
+		setActiveBorderColor(Color.BLACK);
 		update();
 	}
 	
