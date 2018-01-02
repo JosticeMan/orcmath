@@ -12,7 +12,7 @@ public class TheGUI extends GUIApplication {
 		super(width, height);
 		setVisible(true);
 	}
-
+ 
 	public void setSVisible(boolean value) {
 		this.setVisible(value);
 	}
