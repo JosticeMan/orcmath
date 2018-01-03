@@ -1,15 +1,23 @@
 package myStuff;
 
+import java.awt.Color;
+
 import guiTeacher.interfaces.Clickable;
 
 public interface ButtonInterfaceJustin extends Clickable {
 
-	//Lights the button up if it was clicked, if not, make the button normal
-	void updateLight();
+	//Lights the button up
+	void highlightButton();
 	
-	//Enables the program to set whether the button has been clicked or not
-	void isClicked(boolean clicked);
-	
-	//Returns whether or not the button has been clicked 
-	boolean getClicked();
+	//Unhighlights the button
+	void normalizeButton();
+
+	//Sets the color of the button
+	void setColor(Color color);
+
+	//Sets the x coordinate of the button
+	void setX(double x);
+
+	//Sets the y coordinate of the button
+	void setY(double y);
 }
