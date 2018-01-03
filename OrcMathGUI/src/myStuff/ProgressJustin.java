@@ -1,99 +1,36 @@
 package myStuff;
 
-import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
 
-public class ProgressJustin implements ProgressInterfaceJustin {
+import guiTeacher.components.Component;
 
-	public ProgressJustin() {
+public class ProgressJustin extends Component implements ProgressInterfaceJustin {
+
+	public ProgressJustin(int x, int y, int w, int h) {
+		super(x, y, w, h);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public BufferedImage getImage() {
+	public void update(Graphics2D g) {
 		// TODO Auto-generated method stub
-		return null;
+
 	}
 
 	@Override
-	public int getX() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setX(int x) {
+	public void updateRoundNumber(int num) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setY(int y) {
+	public void updateSequenceCount(int count) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public int getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isAnimated() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setVisible(boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isVisible() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public float getAlpha() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setAlpha(float f) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void unhoverAction() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void hoverAction() {
+	public void gameOver() {
 		// TODO Auto-generated method stub
 		
 	}
