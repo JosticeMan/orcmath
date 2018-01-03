@@ -30,6 +30,9 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 		// TODO Auto-generated constructor stub
 	}
 
+	//Simon plays not the PLAYER
+	//Choose random buttons 
+	//Update round number
 	public void run() {
 		
 		randomTextThing.updateRoundNumber(roundNumber);
