@@ -31,7 +31,7 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 	private ButtonInterfaceJustin[] buttons;
 	
 	//This is where we will be updating the user with their progress in the game
-	private TextLabel label;
+	private static TextLabel label;
 	
 	private int lastSelectedButton;
 
@@ -49,6 +49,7 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 		
 	    label.setText("");
 	    nextRound();
+	    System.out.println("test");
 	    moves.add(randomMove());
 	 
 	}
@@ -105,7 +106,7 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 		    viewObjects.add(b); 
 		}
 		progress = getProgress();
-		label = new TextLabel(130,230,300,40,"It's time to play Simon's Game!");
+		label = (new TextLabel(130,230,300,40,"It's time to play Simon's Game!"));
 		//This will track the moves that Simon makes
 		moves = new ArrayList<MoveInterfaceJustin>();
 		//Starting moves according to the preset number, sequenceCount
@@ -120,8 +121,7 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 
 	//WAIT FOR PARTNER
 	private ProgressInterfaceJustin getProgress() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ProgressJustin(100, 100, 200, 200);
 	}
 
 	public void addGameButtons() {
@@ -190,8 +190,7 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 
 	//WAIT FOR PARTNER
 	private ButtonInterfaceJustin getAButton() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ButtonJustin(0, 0, 50, 50, "b", Color.white, null);
 	}
 
 	private MoveInterfaceJustin randomMove() {
@@ -204,6 +203,11 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 	
 	//WAIT FOR PARTNER
 	private MoveInterfaceJustin getMove(int bIndex) {
-	    return null;
+		System.out.println("l");
+	    return new MoveJustin(buttons[bIndex]);
+	}
+
+	public static TextLabel getLabel() {
+		return label;
 	}
 }

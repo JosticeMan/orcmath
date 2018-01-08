@@ -2,14 +2,14 @@ package myStuff;
 
 public class MoveJustin implements MoveInterfaceJustin {
 
-	public MoveJustin() {
-		// TODO Auto-generated constructor stub
+	ButtonInterfaceJustin button;
+	public MoveJustin(ButtonInterfaceJustin button) {
+		this.button = button;
 	}
 
 	@Override
 	public ButtonInterfaceJustin getButton() {
-		// TODO Auto-generated method stub
-		return null;
+		return button;
 	}
 
 }

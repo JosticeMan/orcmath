@@ -1,50 +1,61 @@
 package myStuff;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 import guiTeacher.components.Action;
 import guiTeacher.components.Button;
 
 public class ButtonJustin extends Button implements ButtonInterfaceJustin {
 
+	private Color baseColor;
+	private double xPos;
+	private double yPos;
+	
 	public ButtonJustin(int x, int y, int w, int h, String text, Color color, Action action) {
 		super(x, y, w, h, text, color, action);
-		// TODO Auto-generated constructor stub
+		update();
 	}
 
 	public ButtonJustin(int x, int y, int w, int h, String text, Action action) {
 		super(x, y, w, h, text, action);
-		// TODO Auto-generated constructor stub
+		update();
 	}
 
 	@Override
 	public void highlightButton() {
-		// TODO Auto-generated method stub
-		
+		this.setColor(Color.white);
+		update();
 	}
 
 	@Override
 	public void normalizeButton() {
-		// TODO Auto-generated method stub
-		
+		this.setColor(baseColor);
+		update();
 	}
 
 	@Override
 	public void setColor(Color color) {
-		// TODO Auto-generated method stub
-		
+		baseColor = color;
+		update();
 	}
 
 	@Override
 	public void setX(double x) {
-		// TODO Auto-generated method stub
-		
+		xPos = x;
 	}
 
 	@Override
 	public void setY(double y) {
-		// TODO Auto-generated method stub
-		
+		yPos = y;
+	}
+	
+	public void drawButton(Graphics2D g, boolean hover) {
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		drawShape(g, hover);
+		g.setColor(getForeground());
 	}
 
 }
