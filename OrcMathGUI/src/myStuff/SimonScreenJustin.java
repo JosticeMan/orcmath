@@ -50,7 +50,6 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 	    label.setText("");
 	    nextRound();
 	    System.out.println("test");
-	    moves.add(randomMove());
 	 
 	}
 	
@@ -58,6 +57,7 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 		
 		acceptingUserInput = false;
 		roundNumber++;
+		moves.add(randomMove());
 		progress.updateRoundNumber(roundNumber);
 		progress.updateSequenceCount(sequenceCount);
 		changeText("Simon's turn");
