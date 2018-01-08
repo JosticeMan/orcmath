@@ -62,7 +62,7 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 		progress.updateSequenceCount(sequenceCount);
 		changeText("Simon's turn");
 		label.setText("");
-		playSequence();
+		playSequence(); 
 		changeText("Your turn");
 		acceptingUserInput = true;
 		sequenceCount = 0;
