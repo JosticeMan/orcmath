@@ -5,6 +5,7 @@ import guiTeacher.GUIApplication;
 public class TestMain extends GUIApplication {
 
 	public static TestMain app;
+	public static GameScreen game;
 	public static TestButtonScreen buttonScreen;
 	
 	public TestMain(int width, int height) {
@@ -12,8 +13,13 @@ public class TestMain extends GUIApplication {
 		setVisible(true);
 	}
 
+	public void newGame() {
+		game = new GameScreen(getWidth(), getHeight());
+	}
+	
 	@Override
 	public void initScreen() {
+		game = new GameScreen(getWidth(), getHeight());
 		buttonScreen = new TestButtonScreen(getWidth(), getHeight());
 		setScreen(buttonScreen);
 	}
