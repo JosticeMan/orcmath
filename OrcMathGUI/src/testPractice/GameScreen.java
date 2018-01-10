@@ -14,9 +14,12 @@ public class GameScreen extends ClickableScreen {
 	private Scoreboard sb;
 	private Countdown cd;
 	private Timer timer;
+	private Timer timer1;
 	private int score;
 	private int countDownSecs = 5;
 	private int count = 5;
+	private int timerCountDown = 3;
+	private int tCount = 3;
 	
 	public GameScreen(int width, int height) {
 		super(width, height);
@@ -29,48 +32,62 @@ public class GameScreen extends ClickableScreen {
 		cd = new Countdown(350,300,150,100);
 		
 		btn = new ButtonJustin(350,450,400,300, "", null, null);
-		
-		count = countDownSecs;
+		btn.updateString1("Wait");
 		
 		viewObjects.add(sb);
 		viewObjects.add(cd);
 		
-		btn.updateString1("Click me!");
-		btn.setAction(new Action() {
+		timer1 = new Timer();
+		timer1.scheduleAtFixedRate(new TimerTask() {
 			
 			@Override
-			public void act() {
-			
-				score++;
-				sb.updateScore(score);
+			public void run() {
+				cd.updateTime("" + tCount);
 				
-			}
-			
-		});
-		
-		timer = new Timer();
-	    timer.scheduleAtFixedRate(new TimerTask() {
+				if(tCount <= 0) {
+					
+					cd.updateTime("Go!");
+					timer1.cancel();
+					btn.updateString1("Click me!");
+					btn.setAction(new Action() {
+						
+						@Override
+						public void act() {
+						
+							score++;
+							sb.updateScore(score);
+							
+						}
+						
+					});
+					
+					timer = new Timer();
+				    timer.scheduleAtFixedRate(new TimerTask() {
 
-	        public void run() {
-	           cd.updateTime("Time Left: " + count);
-	           if(count <= 0) {
-	        	   timer.cancel();
-	        	   sb.gameOver();
-	        	   btn.updateString1("Restart");
-	        	   btn.setAction( new Action() {
-					
-					@Override
-					public void act() {
-						TestMain.app.newGame();
-						TestMain.app.setScreen(TestMain.buttonScreen);
-					}
-					
-	        	   });
-	           }
-		       newTime();
-	        }
-	    }, 1000, 1000);
-		
+				        public void run() {
+				           cd.updateTime("Time Left: " + count);
+				           if(count <= 0) {
+				        	   timer.cancel();
+				        	   sb.gameOver();
+				        	   btn.updateString1("Restart");
+				        	   btn.setAction( new Action() {
+								
+								@Override
+								public void act() {
+									TestMain.app.newGame();
+									TestMain.app.setScreen(TestMain.buttonScreen);
+								}
+								
+				        	   });
+				           }
+					       newTime();
+				        }
+				    }, 1000, 1000);
+				    
+				}
+				tTime();
+			}
+		}, 1000, 1000);
 		viewObjects.add(btn);
 	}
 	
@@ -78,4 +95,7 @@ public class GameScreen extends ClickableScreen {
 		count--;
 	}
 
+	public void tTime() {
+		tCount--;
+	}
 }

@@ -13,7 +13,7 @@ public class Countdown extends Component {
 	
 	public Countdown(int x, int y, int w, int h) {
 		super(x, y, w, h);
-		time = "Time Left:" + 0;
+		time = "" + 0;
 		update();
 	}
 	
