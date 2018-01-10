@@ -46,26 +46,16 @@ public class GameScreen extends ClickableScreen {
 				
 				if(tCount <= 0) {
 					
-					cd.updateTime("Go!");
 					timer1.cancel();
-					btn.updateString1("Click me!");
-					btn.setAction(new Action() {
-						
-						@Override
-						public void act() {
-						
-							score++;
-							sb.updateScore(score);
-							
-						}
-						
-					});
 					
 					timer = new Timer();
 				    timer.scheduleAtFixedRate(new TimerTask() {
 
 				        public void run() {
 				           cd.updateTime("Time Left: " + count);
+				           if(count == countDownSecs) {
+					           cd.updateTime("Go! Time Left: " + count);
+				           }
 				           if(count <= 0) {
 				        	   timer.cancel();
 				        	   sb.gameOver();
@@ -82,7 +72,20 @@ public class GameScreen extends ClickableScreen {
 				           }
 					       newTime();
 				        }
-				    }, 1000, 1000);
+				    }, 0, 1000);
+				    
+					btn.updateString1("Click me!");
+					btn.setAction(new Action() {
+						
+						@Override
+						public void act() {
+						
+							score++;
+							sb.updateScore(score);
+							
+						}
+						
+					});
 				    
 				}
 				tTime();
