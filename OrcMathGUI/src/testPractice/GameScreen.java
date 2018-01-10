@@ -52,9 +52,7 @@ public class GameScreen extends ClickableScreen {
 	    timer.scheduleAtFixedRate(new TimerTask() {
 
 	        public void run() {
-	           
 	           cd.updateTime("Time Left: " + count);
-	           newTime();
 	           if(count <= 0) {
 	        	   timer.cancel();
 	        	   sb.gameOver();
@@ -69,7 +67,7 @@ public class GameScreen extends ClickableScreen {
 					
 	        	   });
 	           }
-
+		       newTime();
 	        }
 	    }, 1000, 1000);
 		
