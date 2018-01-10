@@ -9,16 +9,16 @@ import guiTeacher.components.Component;
 
 public class Countdown extends Component {
 
-	private int time;
+	private String time;
 	
 	public Countdown(int x, int y, int w, int h) {
 		super(x, y, w, h);
-		time = 0;
+		time = "Time Left:" + 0;
 		update();
 	}
 	
-	public void updateTime(int ti) {
-		time = ti;
+	public void updateTime(String ti) {
+		time = "" + ti;
 		update();
 	}
 	
@@ -29,8 +29,7 @@ public class Countdown extends Component {
 		g.setFont(myFont);
 		g.setColor(Color.BLACK);
 		FontMetrics fm = g.getFontMetrics();
-		String t = Integer.toString(time);
-		g.drawString("Time left:" + t, 0, fm.getHeight());
+		g.drawString(time, 0, fm.getHeight());
 	}
 
 }

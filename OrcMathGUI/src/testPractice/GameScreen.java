@@ -15,8 +15,8 @@ public class GameScreen extends ClickableScreen {
 	private Countdown cd;
 	private Timer timer;
 	private int score;
-	private int countDownSecs = 10;
-	private int count = 10;
+	private int countDownSecs = 5;
+	private int count = 5;
 	
 	public GameScreen(int width, int height) {
 		super(width, height);
@@ -31,7 +31,6 @@ public class GameScreen extends ClickableScreen {
 		btn = new ButtonJustin(350,450,400,300, "", null, null);
 		
 		count = countDownSecs;
-		cd.updateTime(count);
 		
 		viewObjects.add(sb);
 		viewObjects.add(cd);
@@ -54,7 +53,8 @@ public class GameScreen extends ClickableScreen {
 
 	        public void run() {
 	           
-	           cd.updateTime(newTime());
+	           cd.updateTime("Time Left: " + count);
+	           newTime();
 	           if(count <= 0) {
 	        	   timer.cancel();
 	        	   sb.gameOver();
@@ -76,9 +76,8 @@ public class GameScreen extends ClickableScreen {
 		viewObjects.add(btn);
 	}
 	
-	public int newTime() {
+	public void newTime() {
 		count--;
-		return count;
 	}
 
 }
