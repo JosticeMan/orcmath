@@ -18,20 +18,18 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 	private ProgressInterfaceJustin progress;
 	
 	//SETTINGS FOR GAME
-	private int sequenceCount = 2; //STARTING THIS WILL INCREASE AS THE PLAYER SUCESSFULLY PLAYS THROUGH
-	private int buttonCount = 4;
-	private Color[] colors = {Color.BLUE, Color.yellow, Color.green, Color.red};
+	private int moveIndex;
 	
 	//Add Simon's moves to this list and compare it to the player's. 
 	private ArrayList<MoveInterfaceJustin> moves;
-	private int roundNumber = 1;
+	private int roundNumber;
 	private boolean acceptingUserInput;
 	
 	//Rather than having one variable per button, might aswell put them in an array
 	private ButtonInterfaceJustin[] buttons;
 	
 	//This is where we will be updating the user with their progress in the game
-	private static TextLabel label;
+	private TextLabel label;
 	
 	private int lastSelectedButton;
 
@@ -46,26 +44,22 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 	//Choose random buttons 
 	//Update round number
 	public void run() {
-		
 	    label.setText("");
 	    nextRound();
-	    System.out.println("test");
-	 
 	}
 	
 	private void nextRound() {
-		
 		acceptingUserInput = false;
 		roundNumber++;
 		moves.add(randomMove());
 		progress.updateRoundNumber(roundNumber);
-		progress.updateSequenceCount(sequenceCount);
+		progress.updateSequenceCount(moves.size());
 		changeText("Simon's turn");
 		label.setText("");
 		playSequence(); 
 		changeText("Your turn");
 		acceptingUserInput = true;
-		sequenceCount = 0;
+		moveIndex = 0;
 	}
 
 	private void playSequence() {
@@ -77,7 +71,7 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 			b = moves.get(i).getButton();
 			b.highlightButton();
 			//Shorter the more rounds
-			int sleepTime = 1000 * ((int) (Math.PI / (3 * Math.pow(Math.E, roundNumber))));
+			int sleepTime = 1000 / roundNumber; //(Math.PI / (3 * Math.pow(Math.E, roundNumber))));
 			try {
 				Thread.sleep(sleepTime);
 			} catch (InterruptedException e) {
@@ -99,6 +93,7 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 	
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
+		roundNumber = 0;
 		//Code to add the buttons to the array we created above
 		addGameButtons();
 		//Add buttons to the list of visible objects
@@ -106,14 +101,13 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 		    viewObjects.add(b); 
 		}
 		progress = getProgress();
-		label = (new TextLabel(130,230,300,40,"It's time to play Simon's Game!"));
+		label = (new TextLabel(300,400,300,80,"It's time to play Simon's Game!"));
 		//This will track the moves that Simon makes
 		moves = new ArrayList<MoveInterfaceJustin>();
 		//Starting moves according to the preset number, sequenceCount
 		lastSelectedButton = -1;
-		for(int i = 0; i < sequenceCount; i++) {
-			moves.add(randomMove());
-		}
+		moves.add(randomMove());
+		moves.add(randomMove());
 		roundNumber = 0;
 		viewObjects.add(progress);
 		viewObjects.add(label);
@@ -121,21 +115,22 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 
 	//WAIT FOR PARTNER
 	private ProgressInterfaceJustin getProgress() {
-		return new ProgressJustin(100, 100, 200, 200);
+		return new ProgressJustin(400, 400, 300, 100);
 	}
 
 	public void addGameButtons() {
-		buttons = new ButtonInterfaceJustin[buttonCount]; 
-		for(int i = 0; i < buttonCount; i++) {
+		Color[] colors = {Color.BLUE, Color.yellow, Color.green, Color.red};
+		buttons = new ButtonInterfaceJustin[4]; 
+		for(int i = 0; i < buttons.length; i++) {
 			final ButtonInterfaceJustin b = getAButton();
 			double cx = b.getWidth() / 2;
 			double cy = b.getHeight() / 2;
-			double angle = (i * (2 * Math.PI)) / buttonCount;
+			double angle = (i * (2 * Math.PI)) / buttons.length;
 		    double x = cx + 110.0 * Math.cos(angle);                
 		    double y = cy + 110.0 * Math.sin(angle);                
 			b.setColor(colors[i]); 
-		    b.setX(x);
-		    b.setY(y);
+		    b.setX(200+x);
+		    b.setY(200+y);
 		    b.setAction(new Action() {
 
 		    	public void act() {
@@ -161,9 +156,9 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 		    			blink.start();
 		    			
 		    			//Checks if the user clicked the same button as the one that Simon clicked
-		    			if(b == moves.get(sequenceCount).getButton()) {
+		    			if(b == moves.get(moveIndex).getButton()) {
 		    				
-		    				sequenceCount++;
+		    				moveIndex++;
 		    			
 		    			}
 		    			else {
@@ -171,9 +166,7 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 		    				progress.gameOver();
 		    				
 		    			}
-		    			
-		    			if(sequenceCount == moves.size()) { 
-		    				
+		    			if(moveIndex == moves.size()) { 
 		    			    Thread nextRound = new Thread(SimonScreenJustin.this); 
 		    			    nextRound.start(); 
 		    			    
@@ -190,24 +183,20 @@ public class SimonScreenJustin extends ClickableScreen implements Runnable {
 
 	//WAIT FOR PARTNER
 	private ButtonInterfaceJustin getAButton() {
-		return new ButtonJustin(0, 0, 50, 50, "b", Color.white, null);
+		return new ButtonJustin(0, 0, 40, 40, "", Color.red, null);
 	}
 
 	private MoveInterfaceJustin randomMove() {
 	    int moveIndex = (int) (Math.random() * buttons.length);
 	    while(moveIndex == lastSelectedButton){
-	        moveIndex = (int)(Math.random()*buttons.length);
+	        moveIndex = (int)(Math.random() * buttons.length);
 	    }
+	    lastSelectedButton = moveIndex;
 	    return getMove(moveIndex);
 	}
 	
 	//WAIT FOR PARTNER
 	private MoveInterfaceJustin getMove(int bIndex) {
-		System.out.println("l");
 	    return new MoveJustin(buttons[bIndex]);
-	}
-
-	public static TextLabel getLabel() {
-		return label;
 	}
 }
